@@ -30,7 +30,7 @@ namespace SensorQualityEvaluator
             };
 
             if(stringBuilder.Length > 0)
-                stringBuilder.Length--;
+                stringBuilder.Length = stringBuilder.Length - 3;
             return stringBuilder.ToString();
         }
     }
