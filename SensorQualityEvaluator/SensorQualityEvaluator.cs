@@ -25,10 +25,11 @@ namespace SensorQualityEvaluator
                     referenceValue = referenceHumidity;
                 if (sensor.GetType() == typeof(CarbonMonoxideDetector))
                     referenceValue = referenceCarbonMonoxide;
+
                 stringBuilder.AppendLine($"\"{sensor.Name}\": \"{ sensor.EvaluateSensorCategory(referenceValue) }\",");
             };
 
-            if(stringBuilder.Length != 0)
+            if(stringBuilder.Length > 0)
                 stringBuilder.Length--;
             return stringBuilder.ToString();
         }

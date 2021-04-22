@@ -22,7 +22,8 @@ namespace SensorQualityEvaluator
         {
             try
             {
-                readings.Add((time, decimal.Parse(value, new NumberFormatInfo() { NumberDecimalSeparator = "." })));
+                decimal readingValue = decimal.Parse(value, new NumberFormatInfo() { NumberDecimalSeparator = "." });
+                readings.Add((time, readingValue));
             }
             catch (FormatException)
             {

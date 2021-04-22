@@ -7,17 +7,16 @@ namespace SensorQualityEvaluator
 {
     public static class DataProvider
     {
-        public static HashSet<IEvaluableSensor> LoadSensorsInformationFromString(string input, ref decimal refTemperature, ref decimal refHumidity, ref int refCarbonMonoxide)
+        public static HashSet<IEvaluableSensor> LoadSensorsInformationFromString(string input, ref decimal refTemperature, ref decimal refHumidity, ref int refCarbonMonoxide, string separator = " ")
         {
             HashSet<IEvaluableSensor> sensors = new HashSet<IEvaluableSensor>();
-            DateTime timeOfMeasurement;
 
             string[] lines = input.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
 
             if (lines.Length == 0)
                 return sensors;
 
-            string[] referenceValuesRow = lines[0].Split();
+            string[] referenceValuesRow = lines[0].Split(separator);
 
             if (!decimal.TryParse(referenceValuesRow[1], NumberStyles.Any, CultureInfo.GetCultureInfo("cz-CZ"), out refTemperature))
                 throw new Exception($"Unexpected reference value for Temperature: {referenceValuesRow[1]}, decimal is expected.");
@@ -29,9 +28,10 @@ namespace SensorQualityEvaluator
             string[] sensorsData = lines.Skip(1).ToArray();
 
             IEvaluableSensor currentSensor = null;
+            DateTime timeOfMeasurement;
             foreach (string line in sensorsData) 
             {
-                string[] splittedLine = line.Split();
+                string[] splittedLine = line.Split(separator);
                 if (Constants.SensorTypes.Contains(splittedLine[0]))
                 {
                     if (currentSensor != null)
@@ -62,7 +62,8 @@ namespace SensorQualityEvaluator
                 }
             }
 
-            sensors.Add(currentSensor);
+            if(currentSensor != null)
+                sensors.Add(currentSensor);
             return sensors;
         }
     }

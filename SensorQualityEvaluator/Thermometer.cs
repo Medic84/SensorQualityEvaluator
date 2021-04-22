@@ -20,9 +20,9 @@ namespace SensorQualityEvaluator
 
             if (average <= highestAcceptableValue && average >= lowestAcceptableValue)
             {
-                if (sd < Constants.UltraPreciseStandardDeviation)
+                if (sd < Constants.UltraPreciseStandardDeviationOfTemperatureValues)
                     return Constants.UltraPrecise;
-                if (sd < Constants.VeryPreciseStandardDeviation)
+                if (sd < Constants.VeryPreciseStandardDeviationOfTemperatureValues)
                     return Constants.VeryPrecise;
             }
             return Constants.Precise;

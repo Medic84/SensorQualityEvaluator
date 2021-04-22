@@ -23,7 +23,8 @@ namespace SensorQualityEvaluator
         {
             try
             {
-                readings.Add((time, int.Parse(value)));
+                int readingValue = int.Parse(value);
+                readings.Add((time, readingValue));
             }
             catch (FormatException)
             {
